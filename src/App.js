@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
-function App() {
+export const PresentationOne = props => {
+  return <div>{props.children}</div>;
+};
+
+export const PresentationTwo = props => {
+  return <div>{props.children}</div>;
+};
+
+export const ComponentWithState = props => {
+  const [state, setState] = useState(Math.random());
+  return state;
+};
+
+export const ToggleButton = props => {
+  return <div onClick={props.toggleEffect}></div>;
+};
+
+const App = () => {
+  const [applyEffect, setApplyEffect] = useState(false);
+  const toggleEffect = () => {
+    setApplyEffect(!applyEffect);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {applyEffect ? (
+        <PresentationOne>
+          <ComponentWithState />
+        </PresentationOne>
+      ) : (
+        <PresentationTwo>
+          <ComponentWithState />
+        </PresentationTwo>
+      )}
+      <ToggleButton toggleEffect={toggleEffect} />
     </div>
   );
-}
+};
 
 export default App;
